@@ -23,36 +23,30 @@ namespace Contact.API.Controllers
             _mediator=mediator;
         }
         [HttpGet]
+        [Route("get-all-contacts")]
         public async Task<IActionResult> GetAllContact()
         {
             return Ok(await _mediator.Send(new GetAllContactQuery()));
         }
 
         [HttpDelete]
+        [Route("delete-contact")]
         public async Task<IActionResult> DeleteCommand(int contactId)
         {
-           
             return Ok(await _mediator.Send(new DeleteContactCommand(contactId)));
         }
 
         [HttpPost]
+        [Route("/create-contact")]
         public async Task<IActionResult> CreateContact(CreateContactCommand createContactCommand)
         {
-            ValidateResponseModel validateResult = ValidateClassProperties.GetValidateResult(createContactCommand);
-            EntityResponse<CreateContactResponse> response = new();
-            if (validateResult.IsError)
-            {
-                response.Exception = validateResult.Errors;
-                return Ok(response);
-            }
-            else
-            {
-                return Ok(await _mediator.Send(createContactCommand));
-            }
+            // you can use validator it like this.
+            //ValidateResponseModel validateResult = ValidateClassProperties.GetValidateResult(createContactCommand);
+            return Ok(await _mediator.Send(createContactCommand));
         }
-        [Route("/getContacyByQuery")]
+        [Route("/get-contact-by-query")]
         [HttpGet]
-        public async Task<IActionResult> GetContacyByQuery(string queryType,string keyword)
+        public async Task<IActionResult> GetContacyByQuery(string queryType, string keyword)
         {
             ISearchFactory searchFactory = SearchAdapter.GetFactory(queryType);
             EntityResponse<GetContactListResponse> contactListResponse = await searchFactory.GetContactListByKeyword(keyword);

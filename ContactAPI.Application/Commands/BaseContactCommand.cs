@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace ContactAPI.Application.Commands
 {
-    public class SearchContactCommand: BaseContactCommand
+    public abstract class BaseContactCommand
     {
-        public string Keyword { get; set; }
     }
 }

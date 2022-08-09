@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ContactAPI.Application.Commands
 {
-    public class AddressCommand
+    public class AddressCommand : BaseContactCommand
     {
         public string Href { get; set; }
         public string City { get; set; }

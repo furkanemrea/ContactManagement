@@ -27,11 +27,10 @@ namespace ContactAPI.Application.Handlers.CommandHandler
             _contactCommandRepository=contactCommandRepository;
             _contactQueryRepository=contactQueryRepository;
         }
-
         public async Task<EntityResponse<CreateContactResponse>> Handle(CreateContactCommand request, CancellationToken cancellationToken)
         {
             ContactAPI.Core.Entities.Contact contact = ContactMapper.Mapper.Map<ContactAPI.Core.Entities.Contact>(request);
-            StringBuilder responseMessages = new StringBuilder();
+            List<Exception> exceptions = new();
             if (request != null)
             {
                 ContactAPI.Core.Entities.Contact isAlreadyExistContact =  await _contactQueryRepository.GetContactByName(request.FirstName);
@@ -47,7 +46,7 @@ namespace ContactAPI.Application.Handlers.CommandHandler
                         // email valid check
                         if (!emailAddress.Value.EmailIsValid())
                         {
-                            responseMessages.AppendLine($"{emailAddress.Value} is not in expected format for mail ||");
+                            exceptions.Add(new Exception($"{emailAddress.Value} is not in expected format for mail "));
                         }
                         else
                         {
@@ -63,7 +62,7 @@ namespace ContactAPI.Application.Handlers.CommandHandler
                         // email valid check
                         if (!tempUrl.Value.UrlIsValid())
                         {
-                            responseMessages.AppendLine($"{tempUrl.Value} is not in expected format || ");
+                            exceptions.Add(new Exception($"{tempUrl.Value} is not in expected format for url"));
                         }
                         else
                         {
@@ -116,7 +115,7 @@ namespace ContactAPI.Application.Handlers.CommandHandler
             var createdContactResponse = await _contactCommandRepository.Create(contact);
             if (createdContactResponse.IsSuccess())
             {
-                return EntityResponse<CreateContactResponse>.Builder().SetSuccessStatus().SetMessage(responseMessages.ToString()).Build();
+                return EntityResponse<CreateContactResponse>.Builder().SetExceptions(exceptions).SetSuccessStatus().Build();
             }
             else
             {

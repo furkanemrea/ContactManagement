@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace ContactAPI.Application.Response
 {
-    public class CreateContactResponse
+    public class CreateContactResponse : BaseResponse
     {
         public ContactAPI.Core.Entities.Contact Contact { get; set; }
         public List<Email> Email { get; set; }

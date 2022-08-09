@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ContactAPI.Application.Commands
 {
-    public abstract class BaseRelatedCommand
+    public abstract class BaseRelatedCommand : BaseContactCommand
     {
         public string Name { get; set; }
         public string Type { get; set; }

@@ -39,6 +39,16 @@ namespace ContactAPI.Core.Models.Base
                 this.Status = EntityResponseStatus.Error;
                 return this;
             }
+            public EntityResponseBuilder<T> SetExceptions(List<Exception> exceptions)
+            {
+                if (exceptions != null)
+                {
+                    foreach (var tempException in exceptions)
+                        this.Exception.Add(tempException);
+                }
+                this.Status = EntityResponseStatus.Error;
+                return this;
+            }
             public EntityResponseBuilder<T> SetResult(T resultModel)
             {
                 this.Data = resultModel;
@@ -64,7 +74,7 @@ namespace ContactAPI.Core.Models.Base
                 this.Status = EntityResponseStatus.Duplicate;
                 return this;
             }
-            public  EntityResponse<T> Build()
+            public EntityResponse<T> Build()
             {
                 return new EntityResponse<T>()
                 {

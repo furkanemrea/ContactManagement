@@ -10,6 +10,6 @@ namespace ContactAPI.Core.Models.Base
     {
         public string Message { get; set; }
         public EntityResponseStatus Status { get; set; }
-        public List<Exception> Exception { get; set; }
+        public List<Exception> Exception { get; set; } = new();
     }
 }

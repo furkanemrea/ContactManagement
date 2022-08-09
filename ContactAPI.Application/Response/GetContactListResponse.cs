@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ContactAPI.Application.Response
 {
-    public class GetContactListResponse
+    public class GetContactListResponse: BaseResponse
     {
         public List<ContactAPI.Core.Entities.Contact> Contacts { get; set; }
     }

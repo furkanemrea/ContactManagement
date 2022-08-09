@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ContactAPI.Application.Commands
 {
-    public class CreateContactCommand: IRequest<EntityResponse<CreateContactResponse>>
+    public class CreateContactCommand : BaseContactCommand,IRequest<EntityResponse<CreateContactResponse>>
     {
         public long Id { get; set; }
         [StringData(maxLength:100)]

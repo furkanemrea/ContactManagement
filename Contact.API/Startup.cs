@@ -30,6 +30,7 @@ using Microsoft.AspNetCore.Http;
 using ContactAPI.Core.Models.Base;
 using Newtonsoft.Json;
 using LoggerLibrary;
+using Contact.API.Infrastructure.Caching.Config;
 
 namespace Contact.API
 {
@@ -45,22 +46,17 @@ namespace Contact.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddMediatR(typeof(Startup));
-            //services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<ContactContext>(opt => opt.UseSqlServer("Data Source=.;Initial Catalog=ContactAppDB;Integrated Security=True"));
             services.AddMediatR(typeof(Mediator));
-
-            //services.AddMediatR(typeof(Contact).GetTypeInfo().Assembly);
+            services.AddCacheHelper();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddScoped<IContactCommandRepository, ContactCommandRepository>();
             services.AddScoped<IContactQueryRepository, ContactQueryRepository>();
             services.AddScoped<IRequestHandler<DeleteContactCommand, EntityResponse<ContactResponse>>, DeleteContactHandler>();
             services.AddScoped<IRequestHandler<GetAllContactQuery, EntityResponse<IReadOnlyList<ContactResponse>>>, GetAllContactHandler>();
             services.AddScoped<IRequestHandler<CreateContactCommand, EntityResponse<CreateContactResponse>>, CreateContactHandler>();
 
-            //services.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
-            //services.AddScoped<IContactQueryRepository, ContactQueryRepository>();
-            //services.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
             services.AddScoped<IContactCommandRepository, ContactCommandRepository>();
             services.AddControllers().AddNewtonsoftJson(json =>
             {

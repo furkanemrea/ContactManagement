@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLibrary", "CommonLibr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValidationLibrary", "ValidationLibrary\ValidationLibrary.csproj", "{DABD4A71-77BD-44EA-A6E9-2D49EB0DEE74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerLibrary", "LoggerLibrary\LoggerLibrary.csproj", "{AF7D3350-6BB1-42FE-8B15-96CA23C27FBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggerLibrary", "LoggerLibrary\LoggerLibrary.csproj", "{AF7D3350-6BB1-42FE-8B15-96CA23C27FBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

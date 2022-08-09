@@ -87,7 +87,7 @@ namespace LoggerLibrary
 
 
 
-            /* -------------------------------------- LOGS STAT --------------------------------------------- */
+            /* -------------------------------------- LOGS START --------------------------------------------- */
 
             string requestLog = requestText;
             string path = httpContext.Request.Path;

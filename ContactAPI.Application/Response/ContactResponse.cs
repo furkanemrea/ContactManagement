@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ContactAPI.Application.Response
 {
-    public class ContactResponse
+    public class ContactResponse: BaseResponse
     {
         public long Id { get; set; }
         public string FirstName { get; set; }

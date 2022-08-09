@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ContactAPI.Application.Commands
 {
-    public class DeleteContactCommand:IRequest<EntityResponse<ContactResponse>>
+    public class DeleteContactCommand: BaseContactCommand,IRequest<EntityResponse<ContactResponse>>
     {
         public Int64 Id { get; set; }
         public DeleteContactCommand(Int64 id)
