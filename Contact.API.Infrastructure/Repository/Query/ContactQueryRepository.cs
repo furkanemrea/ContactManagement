@@ -23,9 +23,9 @@ namespace Contact.API.Infrastructure.Repository.Query
             return Task.FromResult(contacts);
         }
 
-        Task<ContactAPI.Core.Entities.Contact> IContactQueryRepository.GetByIdAsync(long id)
+        async Task<ContactAPI.Core.Entities.Contact> IContactQueryRepository.GetByIdAsync(long id)
         {
-            return Task.FromResult(_context.Contact.Find(id));
+            return await Task.FromResult(_context.Contact.Find(id));
         }
 
         public async Task<ContactAPI.Core.Entities.Contact> GetContactByName(string name)

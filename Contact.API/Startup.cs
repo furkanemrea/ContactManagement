@@ -54,8 +54,9 @@ namespace Contact.API
             services.AddScoped<IContactCommandRepository, ContactCommandRepository>();
             services.AddScoped<IContactQueryRepository, ContactQueryRepository>();
             services.AddScoped<IRequestHandler<DeleteContactCommand, EntityResponse<ContactResponse>>, DeleteContactHandler>();
-            services.AddScoped<IRequestHandler<GetAllContactQuery, EntityResponse<IReadOnlyList<ContactResponse>>>, GetAllContactHandler>();
+            services.AddScoped<IRequestHandler<GetAllContactQuery, EntityResponse<IReadOnlyList<ContactResponse>>>, GetAllContactHandler>(); 
             services.AddScoped<IRequestHandler<CreateContactCommand, EntityResponse<CreateContactResponse>>, CreateContactHandler>();
+            services.AddScoped<IRequestHandler<UpdateContactCommand, EntityResponse<UpdateContactResponse>>, UpdateContactHandler>();
 
             services.AddScoped<IContactCommandRepository, ContactCommandRepository>();
             services.AddControllers().AddNewtonsoftJson(json =>

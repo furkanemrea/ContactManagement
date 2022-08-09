@@ -94,6 +94,8 @@ namespace Contact.API.Infrastructure.Repository.Command
                 .Include(x => x.Url)
                 .Include(x => x.Email)
                 .Where(x =>
+                    x.FirstName.Contains(keyword) ||
+                    x.LastName.Contains(keyword) ||
                     x.Address.Any(y => y.City.Contains(keyword)) ||
                     x.Address.Any(y => y.Country.Contains(keyword)) ||
                     x.Address.Any(y => y.Href.Contains(keyword)) ||

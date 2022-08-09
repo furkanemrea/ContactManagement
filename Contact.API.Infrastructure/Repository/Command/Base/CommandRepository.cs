@@ -34,7 +34,9 @@ namespace Contact.API.Infrastructure.Repository.Command.Base
 
         public Task UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Update(entity);
+            _context.SaveChanges();
+            return Task.CompletedTask;
         }
     }
 }

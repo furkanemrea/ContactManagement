@@ -23,17 +23,23 @@ namespace Contact.API.Controllers
             _mediator=mediator;
         }
         [HttpGet]
-        [Route("get-all-contacts")]
+        [Route("/get-all-contacts")]
         public async Task<IActionResult> GetAllContact()
         {
             return Ok(await _mediator.Send(new GetAllContactQuery()));
         }
 
         [HttpDelete]
-        [Route("delete-contact")]
+        [Route("/delete-contact")]
         public async Task<IActionResult> DeleteCommand(int contactId)
         {
             return Ok(await _mediator.Send(new DeleteContactCommand(contactId)));
+        }
+        [HttpPatch]
+        [Route("/update-contact")]
+        public async Task<IActionResult> UpdateCommand(UpdateContactCommand request)
+        {
+            return Ok(await _mediator.Send(request));
         }
 
         [HttpPost]
