@@ -17,9 +17,11 @@ namespace Contact.API.Infrastructure.Repository.Command.Base
         {
             _context = context;
         }
-        public Task<T> AddAsync(T entity)
+        public async Task<T> AddAsync(T entity)
         {
-            throw new NotImplementedException();
+            await _context.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
 
         public Task DeleteAsync(T entity)

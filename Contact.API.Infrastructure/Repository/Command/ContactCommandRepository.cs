@@ -26,9 +26,7 @@ namespace Contact.API.Infrastructure.Repository.Command
             try
             {
                 contact.RowStatusId = RowStatusValues.Active;
-                await _context.Contact.AddAsync(contact);
-                _context.SaveChanges();
-
+                await AddAsync(contact);
                 return EntityResponse<ContactAPI.Core.Entities.Contact>.Builder().SetSuccessStatus().SetResult(contact).Build();
             }
             catch (Exception ex)

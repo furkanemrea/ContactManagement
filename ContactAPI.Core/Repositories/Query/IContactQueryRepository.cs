@@ -12,5 +12,7 @@ namespace ContactAPI.Core.Repositories.Query
     {
         Task<IReadOnlyList<Contact>> GetAllAsync();
         Task<Contact> GetByIdAsync(Int64 id);
+        Task<Contact> GetContactByName(string name);
+
     }
 }

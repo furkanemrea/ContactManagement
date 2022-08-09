@@ -1,6 +1,8 @@
-﻿using Contact.API.Infrastructure.Data;
+﻿using CommonLibrary;
+using Contact.API.Infrastructure.Data;
 using Contact.API.Infrastructure.Repository.Query.Base;
 using ContactAPI.Core.Repositories.Query;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -12,7 +14,7 @@ namespace Contact.API.Infrastructure.Repository.Query
 {
     public class ContactQueryRepository : QueryRepository<ContactAPI.Core.Entities.Contact>, IContactQueryRepository
     {
-        public ContactQueryRepository(ContactContext contactContext):base(contactContext)
+        public ContactQueryRepository(ContactContext contactContext) : base(contactContext)
         {
         }
         Task<IReadOnlyList<ContactAPI.Core.Entities.Contact>> IContactQueryRepository.GetAllAsync()
@@ -24,6 +26,11 @@ namespace Contact.API.Infrastructure.Repository.Query
         Task<ContactAPI.Core.Entities.Contact> IContactQueryRepository.GetByIdAsync(long id)
         {
             return Task.FromResult(_context.Contact.Find(id));
+        }
+
+        public async Task<ContactAPI.Core.Entities.Contact> GetContactByName(string name)
+        {
+            return await _context.Contact.Where(x => x.FirstName == name && x.RowStatusId == RowStatusValues.Active).FirstOrDefaultAsync();
         }
     }
 }

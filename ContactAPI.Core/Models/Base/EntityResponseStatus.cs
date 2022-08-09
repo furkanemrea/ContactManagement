@@ -10,5 +10,6 @@ namespace ContactAPI.Core.Models.Base
     {
         Success=200,
         Error=400,
+        Duplicate= 409,
     }
 }

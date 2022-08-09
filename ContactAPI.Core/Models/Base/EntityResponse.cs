@@ -59,6 +59,11 @@ namespace ContactAPI.Core.Models.Base
                 this.Status = EntityResponseStatus.Error;
                 return this;
             }
+            public EntityResponseBuilder<T> SetDuplicateStatus()
+            {
+                this.Status = EntityResponseStatus.Duplicate;
+                return this;
+            }
             public  EntityResponse<T> Build()
             {
                 return new EntityResponse<T>()

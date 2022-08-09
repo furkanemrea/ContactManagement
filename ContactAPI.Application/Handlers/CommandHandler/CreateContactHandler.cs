@@ -6,6 +6,7 @@ using ContactAPI.Application.Response;
 using ContactAPI.Core.Entities;
 using ContactAPI.Core.Models.Base;
 using ContactAPI.Core.Repositories.Command;
+using ContactAPI.Core.Repositories.Query;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,12 @@ namespace ContactAPI.Application.Handlers.CommandHandler
     public class CreateContactHandler : IRequestHandler<CreateContactCommand, EntityResponse<CreateContactResponse>>
     {
         private readonly IContactCommandRepository _contactCommandRepository;
+        private readonly IContactQueryRepository _contactQueryRepository;
 
-        public CreateContactHandler(IContactCommandRepository contactCommandRepository)
+        public CreateContactHandler(IContactCommandRepository contactCommandRepository, IContactQueryRepository contactQueryRepository)
         {
             _contactCommandRepository=contactCommandRepository;
+            _contactQueryRepository=contactQueryRepository;
         }
 
         public async Task<EntityResponse<CreateContactResponse>> Handle(CreateContactCommand request, CancellationToken cancellationToken)
@@ -31,6 +34,11 @@ namespace ContactAPI.Application.Handlers.CommandHandler
             StringBuilder responseMessages = new StringBuilder();
             if (request != null)
             {
+                ContactAPI.Core.Entities.Contact isAlreadyExistContact =  await _contactQueryRepository.GetContactByName(request.FirstName);
+                if (isAlreadyExistContact != null)
+                {
+                    return EntityResponse<CreateContactResponse>.Builder().SetDuplicateStatus().SetMessage("User already exist in database").Build();
+                }
                 if (request.Emails != null && request.Emails.Count > 0)
                 {
                     // Email foreach
