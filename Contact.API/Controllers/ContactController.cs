@@ -26,7 +26,14 @@ namespace Contact.API.Controllers
         [Route("/get-all-contacts")]
         public async Task<IActionResult> GetAllContact()
         {
-            return Ok(await _mediator.Send(new GetAllContactQuery()));
+            try
+            {
+                return Ok(await _mediator.Send(new GetAllContactQuery()));
+            }
+           catch (System.Exception ex)
+            {
+                return Ok();
+            }
         }
 
         [HttpDelete]

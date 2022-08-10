@@ -12,6 +12,7 @@ namespace Contact.API.Controllers
     public class WeatherForecastController : ControllerBase
     {
         [HttpGet]
+        [Route("test")]
         public IActionResult Test()
         {
             return Ok("test");

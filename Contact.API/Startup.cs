@@ -40,13 +40,21 @@ namespace Contact.API
         {
             Configuration = configuration;
         }
-
+        public static string GetAppSettingsParameter(string Key)
+        {
+            IConfiguration configuration = new ConfigurationBuilder()
+           .AddJsonFile("appsettings.json", true, true)
+           .Build();
+            return configuration.GetSection("AppConfiguration").GetSection(Key).Value;
+        }
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ContactContext>(opt => opt.UseSqlServer("Data Source=.;Initial Catalog=ContactAppDB;Integrated Security=True"));
+            string sqlConnectionString = GetAppSettingsParameter("SqlConnectionString");
+            services.AddHealthChecks();
+            services.AddDbContext<ContactContext>(opt => opt.UseSqlServer(sqlConnectionString));
             services.AddMediatR(typeof(Mediator));
             services.AddCacheHelper();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

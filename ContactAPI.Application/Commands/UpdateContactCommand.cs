@@ -11,8 +11,18 @@ namespace ContactAPI.Application.Commands
 {
     public class UpdateContactCommand: BaseContactCommand, IRequest<EntityResponse<UpdateContactResponse>>
     {
+
+        /// <summary>
+        /// Related Contact Id
+        /// </summary>
         public int Id { get; set; }
+        /// <summary>
+        /// Contact First Name
+        /// </summary>
         public string FirstName { get; set; }
+        /// <summary>
+        /// Contact Last Name
+        /// </summary>
         public string LastName { get; set; }
     }
 }
