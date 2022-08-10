@@ -31,5 +31,10 @@ namespace ContactAPI.Application.Commands
         public List<InstantMessageCommand> InstantMessages { get; set; }
         public List<SocialProfileCommand> SocialProfiles { get; set; }
         public List<DateCommand> Dates { get; set; }
+
+        public bool IsNull()
+        {
+            return this == null;
+        }
     }
 }
