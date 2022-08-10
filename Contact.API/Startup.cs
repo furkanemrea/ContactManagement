@@ -81,6 +81,15 @@ namespace Contact.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Contact.API v1"));
             }
+            app.UseHealthChecks("/api/health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions()
+            {
+                ResponseWriter = async (context, report) =>
+                {
+                    await context.Response.WriteAsync("I'm OK");
+                }
+            });
+
+
             app.UseMiddleware<RequestLoggerMiddleware>();
 
             app.UseHttpsRedirection();

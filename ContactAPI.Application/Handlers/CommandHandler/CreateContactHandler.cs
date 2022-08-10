@@ -49,7 +49,6 @@ namespace ContactAPI.Application.Handlers.CommandHandler
                 {
                     return EntityResponse<CreateContactResponse>.Builder().SetDuplicateStatus().SetMessage("User already exist in database").Build();
                 }
-
                 request.Emails.EmailChecker(contact, exceptions);
                 request.Urls.UrlChecker(contact, exceptions);
                 request.Phones.PhoneChecker(contact, exceptions);
